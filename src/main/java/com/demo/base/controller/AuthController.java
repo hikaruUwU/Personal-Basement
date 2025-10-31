@@ -31,6 +31,6 @@ public class AuthController {
 
     @GetMapping("/status")
     public Result<Void> status() {
-        return Result.success(null);
+        return Result.success(Thread.currentThread().getName());
     }
 }
