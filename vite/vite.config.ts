@@ -7,7 +7,7 @@ import viteCompression from 'vite-plugin-compression'
 
 const proxy: Record<string, ProxyOptions> = {
     '/api': {
-        target: 'http://127.0.0.1:8080',
+        target: 'http://127.0.0.1:80',
         changeOrigin: true,
         ws: true,
         rewrite: path => path.replace(/^\/api/, ''),
@@ -40,5 +40,9 @@ export default defineConfig({
     ],
     server: {
         proxy: proxy
+    },
+    build:{
+        emptyOutDir: true,
+        outDir: '../openresty/html'
     }
 })
