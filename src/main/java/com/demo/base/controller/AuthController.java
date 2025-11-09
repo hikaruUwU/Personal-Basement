@@ -28,9 +28,4 @@ public class AuthController {
     public Result<Void> logout() {
         return authService.logout();
     }
-
-    @GetMapping("/status")
-    public Result<Void> status() {
-        return Result.success(Thread.currentThread().getName());
-    }
 }
