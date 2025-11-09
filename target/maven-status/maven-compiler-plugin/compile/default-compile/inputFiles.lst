@@ -1,0 +1,13 @@
+C:\Users\uwufi\IdeaProjects\base\src\main\java\com\demo\base\BaseApplication.java
+C:\Users\uwufi\IdeaProjects\base\src\main\java\com\demo\base\config\GlobalErrorWebExceptionHandler.java
+C:\Users\uwufi\IdeaProjects\base\src\main\java\com\demo\base\config\PassInterceptor.java
+C:\Users\uwufi\IdeaProjects\base\src\main\java\com\demo\base\config\TomcatConfig.java
+C:\Users\uwufi\IdeaProjects\base\src\main\java\com\demo\base\config\WebConfig.java
+C:\Users\uwufi\IdeaProjects\base\src\main\java\com\demo\base\controller\AuthController.java
+C:\Users\uwufi\IdeaProjects\base\src\main\java\com\demo\base\domain\response\Result.java
+C:\Users\uwufi\IdeaProjects\base\src\main\java\com\demo\base\domain\User.java
+C:\Users\uwufi\IdeaProjects\base\src\main\java\com\demo\base\mapper\UserMapper.java
+C:\Users\uwufi\IdeaProjects\base\src\main\java\com\demo\base\repository\UserRepository.java
+C:\Users\uwufi\IdeaProjects\base\src\main\java\com\demo\base\service\AuthService.java
+C:\Users\uwufi\IdeaProjects\base\src\main\java\com\demo\base\util\ContextHolder.java
+C:\Users\uwufi\IdeaProjects\base\src\main\java\com\demo\base\util\VirtualExecutor.java
