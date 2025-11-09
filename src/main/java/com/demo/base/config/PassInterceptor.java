@@ -1,5 +1,6 @@
 package com.demo.base.config;
 
+import com.demo.base.util.ContextHolder;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,5 +17,11 @@ public class PassInterceptor implements HandlerInterceptor {
             return false;
         } else
             return true;
+    }
+
+    @Override
+    public void afterCompletion(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler, Exception ex) throws Exception {
+        ContextHolder.remove();
+        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
     }
 }
