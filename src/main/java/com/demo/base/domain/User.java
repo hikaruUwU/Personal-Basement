@@ -1,6 +1,7 @@
 package com.demo.base.domain;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,9 +19,8 @@ import java.io.Serializable;
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User implements Serializable {
-    @NotBlank(message = "Username required")
+    @NotBlank(message = "用户名不能为空")
     String username;
-    @NotBlank(message = "Password required")
+    @NotBlank(message = "密码不能为空")
     String password;
 }
-
