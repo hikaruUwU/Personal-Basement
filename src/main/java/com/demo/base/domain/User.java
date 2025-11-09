@@ -1,7 +1,9 @@
 package com.demo.base.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.mybatisflex.annotation.Id;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +12,9 @@ import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigInteger;
 
 @Accessors(chain = true)
 @Data
@@ -19,6 +23,11 @@ import java.io.Serializable;
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+    @JsonSerialize(using = ToStringSerializer.class)
+    @Id
+    BigInteger uuid;
     @NotBlank(message = "用户名不能为空")
     String username;
     @NotBlank(message = "密码不能为空")
