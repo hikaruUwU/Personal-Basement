@@ -140,3 +140,9 @@ location /api/ {
         ...
 }
 ```
+
+Using command
+```
+nginx -t
+```
+to test if Nginx has successfully parsed your configuration.
