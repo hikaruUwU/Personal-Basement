@@ -20,7 +20,7 @@ This is the Spring Boot backend template, pre-configured with core dependencies 
 
 **Frontend** **Vite / TypeScript**
 
-The frontend project is set up using Vite for a fast development experience and TypeScript for code robustness.
+The frontend project is set up using Vite for a fast development experience and TypeScript for code robustness, including basic codes.
 
 * **Build Tool:** **Vite** is used for its blazing-fast cold start and instant Hot Module Replacement (HMR).
 * **Language:** **TypeScript**
@@ -57,7 +57,7 @@ npm install
 npm run dev // for development
 ```
 
-Using
+ Using
 ```
 npm run build
 ```
@@ -71,9 +71,72 @@ build:{
     }
 ```
 
+2.Json-Mocker(native/java)
 
+placing your response.json relative to json-mocker.exe/json-mocker.jar.
 
+example
+```
+"status/health": {
+    "service_status": "UP",
+    "database_connection": "OK",
+    "timestamp": 1731333000
+  }
+```
+will take effect on 127.0.0.1:8080/api/status/health
 
+run mocker\json-mocker.exe to expose a Http EndPoint to **0.0.0.0:8080**
 
+or run command
+```
+java -jar .\json-mocker.jar
+```
 
+3. Backend(Springboot)
 
+Sync maven and run
+```
+./mvnw spring-boot:run
+```
+
+Verify the backend is running on a non-conflicting port (e.g., 8081).
+
+4.Gateway(powered byOpenResty)
+
+Deployment: Deploy the configuration files from the **./openresty/conf directory** to your OpenResty/Nginx environment.
+
+it is pre-configured with some configurations:
+
+Static HTML hosting
+```
+    server {
+        listen 80;
+        location / {
+            root html;
+            index index.html index.htm;
+        }
+        ...
+}
+```
+
+Rate limiting
+```
+limit_req_zone  $binary_remote_addr  zone=mylimit:5m  rate=100r/s;
+```
+
+Reserving proxy
+
+```
+ upstream backend_service {
+        server 127.0.0.1:8080;
+        keepalive 32;
+        ...
+    }
+```
+
+```
+location /api/ {
+   proxy_pass http://backend_service/;
+        ...
+}
+```
