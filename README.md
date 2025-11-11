@@ -6,13 +6,34 @@ This scaffold provides pre-configured basic code and core dependencies to help d
 
 ### 🚀 Technology Stack Overview
 
-| Domain | Key Technology | Description |
+**Spring Boot (Java)** 
 
-| **Backend** | **Spring Boot (Java)** | Provides a fast development experience for easily configured RESTful API services. |
-| **Frontend** | **Vite / TypeScript** | An extremely fast front-end build tool, combined with TypeScript for more robust code. |
-| **Gateway** | **OpenResty (Lua)** | A high-performance web platform based on Nginx, used for reverse proxy, load balancing, and API routing. |
-| **Build Tool** | **Maven** | Dependency management and build tool for the Java project. |
+This is the Spring Boot backend template, pre-configured with core dependencies and utility code.
 
-### 📁 Directory Structure
+* **Required JDK:** **Java 21 or Higher**.
+* **Core Dependencies (via Maven):**
+    * **`web`**: For building **RESTful APIs**，tranditional servlet.
+    * **`lombok`**: To reduce boilerplate code (e.g., getters/setters).
+    * **`spring-boot-validation`**: For **validating** request data.
+    * **`mysql-connector-j`**&**`hikari-CP`**: MySQL database driver.
+    * **`mybatis-flex`**: Simple ORM for database operations.
 
-The repository structure clearly separates the front-end, back-end, and gateway configurations:
+**Frontend** **Vite / TypeScript**
+
+The frontend project is set up using Vite for a fast development experience and TypeScript for code robustness.
+
+* **Build Tool:** **Vite** is used for its blazing-fast cold start and instant Hot Module Replacement (HMR).
+* **Language:** **TypeScript**
+* **Core Dependencies (via npm):**
+    * **`element-plus`**: A popular component library for building the **User Interface (UI)**.
+    * **`vue-router`**: The official library for **managing routing** and navigation within the SPA.
+    * **`pinia`**: The recommended lightweight store for **State Management** (replacing Vuex).
+    * **`gprogress`**: A utility for displaying **page loading progress** bars.
+    * **`vue-i18n`**: Provides robust capabilities for **Internationalization** (multi-language support).
+    * **`axios`**: A widely used library for making **HTTP requests** (API calls).
+    * **`scss`**: The preprocessor used for **styling** the application.
+
+
+**Gateway** **OpenResty (Lua)**
+
+A high-performance web platform based on Nginx, used for reverse proxy, load balancing, and API routing.
