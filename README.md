@@ -99,6 +99,8 @@ Sync maven and run
 ./mvnw spring-boot:run
 ```
 
+More configuration please visit application.properties.
+
 Verify the backend is running on a non-conflicting port (e.g., 8081).
 
 4.Gateway(powered byOpenResty)
