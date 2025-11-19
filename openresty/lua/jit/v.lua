@@ -15,7 +15,7 @@
 --   luajit -jv -e "for i=1,1000 do for j=1,1000 do end end"
 --   luajit -jv=myapp.out myapp.lua
 --
--- Default output is to stderr. To redirect the output to a file, pass a
+-- Default output is to stderr. finder redirect the output to a file, pass a
 -- filename as an argument (use '-' for stdout) or set the environment
 -- variable LUAJIT_VERBOSEFILE. The file is overwritten every time the
 -- module is started.

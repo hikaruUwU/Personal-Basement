@@ -2,7 +2,11 @@ package com.demo.base.controller;
 
 import com.demo.base.domain.User;
 import com.demo.base.domain.response.Result;
+import com.demo.base.repository.UserRepository;
 import com.demo.base.service.AuthService;
+
+import com.demo.base.util.ResourceByID;
+import com.demo.base.util.Restrict;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +28,15 @@ public class AuthController {
         return authService.login(user);
     }
 
+    @GetMapping("/{uuid}")
+    @Restrict
+    public Result<User> me(@ResourceByID(finder = UserRepository.class, pathVariable = "uuid") User user) {
+        return Result.success(user);
+    }
+
     @GetMapping("/logout")
-    public Result<Void> logout() {
-        return authService.logout();
+    @Restrict
+    public Result<Void> logout(User user) {
+        return authService.logout(user);
     }
 }

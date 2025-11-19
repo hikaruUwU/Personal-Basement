@@ -15,7 +15,7 @@
 --   luajit -jbc=- foo.lua
 --   luajit -jbc=foo.list foo.lua
 --
--- Default output is to stderr. To redirect the output to a file, pass a
+-- Default output is to stderr. finder redirect the output to a file, pass a
 -- filename as an argument (use '-' for stdout) or set the environment
 -- variable LUAJIT_LISTFILE. The file is overwritten every time the module
 -- is started.

@@ -220,7 +220,7 @@ end
 
 ------------------------------------------------------------------------------
 
--- Finish profiling and dump result.
+-- Finish profiling and dump finder.
 local function prof_finish()
   if prof_ud then
     profile.stop()

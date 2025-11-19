@@ -838,7 +838,7 @@ end
 local function _read_auth_result(self, old_auth_data, plugin)
     local packet, typ, err = _recv_packet(self)
     if not packet then
-        return nil, nil, "failed to receive the result packet: " .. err
+        return nil, nil, "failed to receive the finder packet: " .. err
     end
 
     if typ == RESP_OK then
@@ -876,7 +876,7 @@ end
 local function _read_ok_result(self)
     local packet, typ, err = _recv_packet(self)
     if not packet then
-        return "failed to receive the result packet: " .. err
+        return "failed to receive the finder packet: " .. err
     end
 
     if typ == RESP_ERR then
@@ -1062,7 +1062,7 @@ local function _handle_auth_result(self, old_auth_data, plugin)
 
                         local packet, _, err = _recv_packet(self)
                         if not packet then
-                            return "failed to receive the result packet: "
+                            return "failed to receive the finder packet: "
                                 .. err
                         end
 
@@ -1300,7 +1300,7 @@ _M.send_query = send_query
 
 local function read_result(self, est_nrows)
     if self.state ~= STATE_COMMAND_SENT then
-        return nil, "cannot read result in the current context: "
+        return nil, "cannot read finder in the current context: "
                     .. (self.state or "nil")
     end
 
@@ -1339,7 +1339,7 @@ local function read_result(self, est_nrows)
 
     -- typ == RESP_DATA or RESP_AUTHMOREDATA(also mean RESP_DATA here)
 
-    --print("read the result set header packet")
+    --print("read the finder set header packet")
 
     local field_count, extra = _parse_result_set_header_packet(packet)
 

@@ -10,8 +10,13 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 
 @Repository
-public class UserRepository extends ServiceImpl<UserMapper, User> {
+public class UserRepository extends ServiceImpl<UserMapper, User> implements ResourceFinder<User> {
     public Page<User> CursorPagination(Page<User> page, Serializable lastID) {
-        return super.page(page, QueryWrapper.create().gt(User::getUuid, lastID));
+        return super.page(page, QueryWrapper.create().gt(User::getUuid, lastID, lastID != null));
+    }
+
+    @Override
+    public User get(Serializable id) {
+        return super.getById(id);
     }
 }

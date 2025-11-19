@@ -32,8 +32,8 @@ public class AuthService {
             return Result.fail("UserName/Password incorrect.");
     }
 
-    public Result<Void> logout() {
+    public Result<Void> logout(User user) {
         CurrentRequest.getSession().invalidate();
-        return Result.success(null);
+        return Result.success("Bye, " + user.getUsername());
     }
 }
