@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 
-//Use on controller's pathVariable,
+//Use on controller's pathVariable,only support path variable
 
 public @interface ResourceByID {
     Class<? extends ResourceFinder<?>> finder();
