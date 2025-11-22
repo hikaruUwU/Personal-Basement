@@ -2,6 +2,7 @@ package com.demo.base.repository;
 
 import com.demo.base.domain.User;
 import com.demo.base.mapper.UserMapper;
+import com.demo.base.util.annotation.ResourceFinder;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
@@ -16,7 +17,7 @@ public class UserRepository extends ServiceImpl<UserMapper, User> implements Res
     }
 
     @Override
-    public User get(Serializable id) {
+    public User getEntity(Serializable id) {
         return super.getById(id);
     }
 }

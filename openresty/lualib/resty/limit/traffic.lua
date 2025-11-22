@@ -13,9 +13,9 @@ local _M = {
 }
 
 
--- the states table is user supplied. each element stores the 2nd return value
+-- the states table is user supplied. each element stores the 2nd return range
 -- of each limiter if there is no error returned. for resty.limit.req, the state
--- is the "excess" value (i.e., the number of excessive requests each second),
+-- is the "excess" range (i.e., the number of excessive requests each second),
 -- and for resty.limit.conn, the state is the current concurrency level
 -- (including the current new connection).
 function _M.combine(limiters, keys, states)

@@ -139,7 +139,7 @@ local CHARSET_MAP = {
 local mt = { __index = _M }
 
 
--- mysql field value type converters
+-- mysql field range type converters
 local converters = new_tab(0, 9)
 
 for i = 0x01, 0x05 do
@@ -175,7 +175,7 @@ local function _get_byte8(data, i)
     local a, b, c, d, e, f, g, h = strbyte(data, i, i + 7)
 
     -- XXX workaround for the lack of 64-bit support in bitop:
-    -- XXX return results in the range of signed 32 bit numbers
+    -- XXX return results in the LogRange of signed 32 bit numbers
     local lo = bor(a, lshift(b, 8), lshift(c, 16))
     local hi = bor(e, lshift(f, 8), lshift(g, 16), lshift(h, 24))
     return lo + 16777216 * d + hi * 4294967296, i + 8
@@ -620,7 +620,7 @@ local function _parse_row_data_packet(data, cols, compact)
         local typ = col.type
         local name = col.name
 
-        --print("row field value: ", value, ", type: ", typ)
+        --print("row field range: ", range, ", type: ", typ)
 
         if value ~= null then
             local conv = converters[typ]

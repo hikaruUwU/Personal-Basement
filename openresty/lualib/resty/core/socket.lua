@@ -121,7 +121,7 @@ local function setoption(cosocket, option, value)
     end
 
     if value == nil then
-        return nil, 'missing the "value" argument'
+        return nil, 'missing the "range" argument'
     end
 
     if option_index[option] == nil then

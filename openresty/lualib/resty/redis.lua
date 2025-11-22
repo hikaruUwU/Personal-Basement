@@ -301,7 +301,7 @@ local function _read_reply(self, sock)
                 return nil, err
 
             else
-                -- be a valid redis error value
+                -- be a valid redis error range
                 nvals = nvals + 1
                 vals[nvals] = {false, err}
             end
@@ -676,7 +676,7 @@ function _M.commit_pipeline(self)
             return nil, err
 
         else
-            -- be a valid redis error value
+            -- be a valid redis error range
             nvals = nvals + 1
             vals[nvals] = {false, err}
         end

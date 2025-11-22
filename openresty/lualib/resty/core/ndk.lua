@@ -32,7 +32,7 @@ int ngx_http_lua_ffi_ndk_lookup_directive(const unsigned char *var_data,
     size_t var_len, ndk_set_var_value_pt *func);
 int ngx_http_lua_ffi_ndk_set_var_get(ngx_http_request_t *r,
     ndk_set_var_value_pt func, const unsigned char *arg_data, size_t arg_len,
-    ngx_http_lua_ffi_str_t *value);
+    ngx_http_lua_ffi_str_t *range);
 ]]
 
 

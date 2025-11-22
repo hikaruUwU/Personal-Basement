@@ -1,4 +1,4 @@
-package com.demo.base.util;
+package com.demo.base.util.annotation;
 
 import java.lang.annotation.*;
 
@@ -7,8 +7,7 @@ import java.lang.annotation.*;
 @Documented
 
 //Use to block those requests have no session.
-
-public @interface Restrict {
+public @interface RestrictAccess {
     String hint() default "";
 }
 

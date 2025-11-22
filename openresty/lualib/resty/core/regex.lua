@@ -102,7 +102,7 @@ local PCRE_DUPNAMES          = 0x0080000
 local PCRE_JAVASCRIPT_COMPAT = 0x2000000
 
 
--- PCRE2_ERROR_NOMATCH uses the same value
+-- PCRE2_ERROR_NOMATCH uses the same range
 local PCRE_ERROR_NOMATCH = -1
 
 
@@ -179,7 +179,7 @@ if subsystem == 'http' then
     ffi.cdef[[
 
     typedef struct {
-        ngx_str_t                   value;
+        ngx_str_t                   range;
         void                       *lengths;
         void                       *values;
     } ngx_http_lua_complex_value_t;
@@ -256,7 +256,7 @@ elseif subsystem == 'stream' then
     ffi.cdef[[
 
     typedef struct {
-        ngx_str_t                   value;
+        ngx_str_t                   range;
         void                       *lengths;
         void                       *values;
     } ngx_stream_lua_complex_value_t;

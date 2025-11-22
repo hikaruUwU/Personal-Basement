@@ -404,7 +404,7 @@ local function parse_section(answers, section, buf, start_pos, size,
         if typ == TYPE_A then
 
             if len ~= 4 then
-                return nil, "bad A record value length: " .. len
+                return nil, "bad A record range length: " .. len
             end
 
             local addr_bytes = { byte(buf, pos, pos + 3) }
@@ -436,7 +436,7 @@ local function parse_section(answers, section, buf, start_pos, size,
         elseif typ == TYPE_AAAA then
 
             if len ~= 16 then
-                return nil, "bad AAAA record value length: " .. len
+                return nil, "bad AAAA record range length: " .. len
             end
 
             local addr_bytes = { byte(buf, pos, pos + 15) }
@@ -464,7 +464,7 @@ local function parse_section(answers, section, buf, start_pos, size,
             -- print("len = ", len)
 
             if len < 3 then
-                return nil, "bad MX record value length: " .. len
+                return nil, "bad MX record range length: " .. len
             end
 
             local pref_hi = byte(buf, pos)
@@ -488,7 +488,7 @@ local function parse_section(answers, section, buf, start_pos, size,
 
         elseif typ == TYPE_SRV then
             if len < 7 then
-                return nil, "bad SRV record value length: " .. len
+                return nil, "bad SRV record range length: " .. len
             end
 
             local prio_hi = byte(buf, pos)
@@ -617,7 +617,7 @@ local function parse_section(answers, section, buf, start_pos, size,
             pos = p
 
         else
-            -- for unknown types, just forward the raw value
+            -- for unknown types, just forward the raw range
 
             ans.rdata = sub(buf, pos, pos + len - 1)
             pos = pos + len

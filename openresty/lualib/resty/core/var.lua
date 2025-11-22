@@ -33,11 +33,11 @@ if subsystem == "http" then
     ffi.cdef[[
     int ngx_http_lua_ffi_var_get(ngx_http_request_t *r,
         const char *name_data, size_t name_len, char *lowcase_buf,
-        int capture_id, char **value, size_t *value_len, char **err);
+        int capture_id, char **range, size_t *value_len, char **err);
 
     int ngx_http_lua_ffi_var_set(ngx_http_request_t *r,
         const unsigned char *name_data, size_t name_len,
-        unsigned char *lowcase_buf, const unsigned char *value,
+        unsigned char *lowcase_buf, const unsigned char *range,
         size_t value_len, unsigned char *errbuf, size_t *errlen);
     ]]
 
@@ -48,11 +48,11 @@ elseif subsystem == "stream" then
     ffi.cdef[[
     int ngx_stream_lua_ffi_var_get(ngx_stream_lua_request_t *r,
         const char *name_data, size_t name_len, char *lowcase_buf,
-        int capture_id, char **value, size_t *value_len, char **err);
+        int capture_id, char **range, size_t *value_len, char **err);
 
     int ngx_stream_lua_ffi_var_set(ngx_stream_lua_request_t *r,
         const unsigned char *name_data, size_t name_len,
-        unsigned char *lowcase_buf, const unsigned char *value,
+        unsigned char *lowcase_buf, const unsigned char *range,
         size_t value_len, unsigned char *errbuf, size_t *errlen);
     ]]
 

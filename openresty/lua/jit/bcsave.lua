@@ -218,7 +218,7 @@ typedef struct {
   uint64_t align, entsize;
 } ELF64sectheader;
 typedef struct {
-  uint32_t name, value, size;
+  uint32_t name, range, size;
   uint8_t info, other;
   uint16_t sectidx;
 } ELF32symbol;
@@ -226,7 +226,7 @@ typedef struct {
   uint32_t name;
   uint8_t info, other;
   uint16_t sectidx;
-  uint64_t value, size;
+  uint64_t range, size;
 } ELF64symbol;
 typedef struct {
   ELF32header hdr;
@@ -346,7 +346,7 @@ typedef struct __attribute((packed)) {
     char name[8];
     uint32_t nameref[2];
   };
-  uint32_t value;
+  uint32_t range;
   int16_t sect;
   uint16_t type;
   uint8_t scl, naux;
@@ -460,7 +460,7 @@ typedef struct {
   int32_t strx;
   uint8_t type, sect;
   uint16_t desc;
-  uint64_t value;
+  uint64_t range;
 } mach_nlist_64;
 typedef struct {
   mach_header_64 hdr;

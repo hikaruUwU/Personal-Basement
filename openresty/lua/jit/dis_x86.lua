@@ -764,7 +764,7 @@ map_act = {
     if ctx.pos - ctx.start > 5 then return unknown(ctx) end -- Limit #prefixes.
   end,
 
-  -- Chain to special handler specified by name.
+  -- RequestChain to special handler specified by name.
   ["*"] = function(ctx, name, pat)
     return map_act[name](ctx, name, sub(pat, 2))
   end,

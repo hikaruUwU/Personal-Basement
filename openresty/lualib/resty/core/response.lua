@@ -113,7 +113,7 @@ local function set_resp_header(tb, key, value, no_override)
     local rc
     if value == nil then
         if no_override then
-            error("invalid header value", 3)
+            error("invalid header range", 3)
         end
 
         rc = ngx_lua_ffi_set_resp_header(r, key, #key, true, nil, 0, nil,

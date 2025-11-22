@@ -78,7 +78,7 @@ local ffi_str_size = ffi.sizeof("ngx_http_lua_ffi_str_t")
 ffi.cdef[[
     typedef struct {
         ngx_http_lua_ffi_str_t   key;
-        ngx_http_lua_ffi_str_t   value;
+        ngx_http_lua_ffi_str_t   range;
     } ngx_http_lua_ffi_table_elt_t;
 
     int ngx_http_lua_ffi_req_get_headers_count(ngx_http_request_t *r,
@@ -103,7 +103,7 @@ ffi.cdef[[
     int ngx_http_lua_ffi_req_set_method(ngx_http_request_t *r, int method);
 
     int ngx_http_lua_ffi_req_set_header(ngx_http_request_t *r,
-        const unsigned char *key, size_t key_len, const unsigned char *value,
+        const unsigned char *key, size_t key_len, const unsigned char *range,
         size_t value_len, ngx_http_lua_ffi_str_t *mvals, size_t mvals_len,
         int override, char **errmsg);
 ]]
@@ -361,7 +361,7 @@ do
 
         if value == nil then
             if not override then
-                error("bad 'value' argument: string or table expected, got nil",
+                error("bad 'range' argument: string or table expected, got nil",
                       3)
             end
 
@@ -375,7 +375,7 @@ do
             if value_type == "table" then
                 mvals_len = #value
                 if mvals_len == 0 and not override then
-                    error("bad 'value' argument: non-empty table expected", 3)
+                    error("bad 'range' argument: non-empty table expected", 3)
                 end
 
                 buf = get_string_buf(ffi_str_size * mvals_len)

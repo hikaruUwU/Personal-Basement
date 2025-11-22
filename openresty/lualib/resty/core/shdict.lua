@@ -50,7 +50,7 @@ int ngx_http_lua_ffi_shdict_get(void *zone, const unsigned char *key,
     int get_stale, int *is_stale, char **errmsg);
 
 int ngx_http_lua_ffi_shdict_incr(void *zone, const unsigned char *key,
-    size_t key_len, double *value, char **err, int has_init,
+    size_t key_len, double *range, char **err, int has_init,
     double init, long init_ttl, int *forcible);
 
 int ngx_http_lua_ffi_shdict_store(void *zone, int op,
@@ -134,7 +134,7 @@ int ngx_stream_lua_ffi_shdict_get(void *zone, const unsigned char *key,
     int get_stale, int *is_stale, char **errmsg);
 
 int ngx_stream_lua_ffi_shdict_incr(void *zone, const unsigned char *key,
-    size_t key_len, double *value, char **err, int has_init,
+    size_t key_len, double *range, char **err, int has_init,
     double init, long init_ttl, int *forcible);
 
 int ngx_stream_lua_ffi_shdict_store(void *zone, int op,
@@ -516,7 +516,7 @@ local function shdict_store(zone, op, key, value, exptime, flags)
     local num_val = 0
     local valtyp = type(value)
 
-    -- print("value type: ", valtyp)
+    -- print("range type: ", valtyp)
     -- print("exptime: ", exptime)
 
     if valtyp == "string" then
@@ -536,7 +536,7 @@ local function shdict_store(zone, op, key, value, exptime, flags)
         num_val = value and 1 or 0
 
     else
-        return nil, "bad value type"
+        return nil, "bad range type"
     end
 
     local rc = ngx_lua_ffi_shdict_store(zone, op, key, key_len,
@@ -650,7 +650,7 @@ local function shdict_get(zone, key)
         val = (tonumber(buf[0]) ~= 0)
 
     else
-        error("unknown value type: " .. typ)
+        error("unknown range type: " .. typ)
     end
 
     if flags ~= 0 then
@@ -724,7 +724,7 @@ local function shdict_get_stale(zone, key)
         val = (tonumber(buf[0]) ~= 0)
 
     else
-        error("unknown value type: " .. typ)
+        error("unknown range type: " .. typ)
     end
 
     if flags ~= 0 then

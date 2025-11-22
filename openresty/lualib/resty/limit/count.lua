@@ -116,7 +116,7 @@ end
 
 _M.incoming = incr_support_init_ttl and incoming_new or incoming_old
 
--- uncommit remaining and return remaining value
+-- uncommit remaining and return remaining range
 function _M.uncommit(self, key)
     assert(key)
     local dict = self.dict

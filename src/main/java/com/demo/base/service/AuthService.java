@@ -14,26 +14,26 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     private final UserRepository userRepository;
 
-    private final HttpServletRequest CurrentRequest;
+    private final HttpServletRequest Current;
 
     @Autowired
     public AuthService(UserRepository userRepository, HttpServletRequest request) {
         this.userRepository = userRepository;
-        this.CurrentRequest = request;
+        this.Current = request;
     }
-
     public Result<Void> login(@Nonnull @Valid User user) {
         User one = userRepository.getOne(QueryWrapper.create().eq(User::getUsername, user.getUsername()));
 
         if (one != null && one.getPassword().equals(user.getPassword())) {
-            CurrentRequest.getSession(true);
+//          Current.getSession(true).setAttribute("user", one);
+            Current.getSession(true);
             return Result.success(null);
         } else
             return Result.fail("UserName/Password incorrect.");
     }
 
-    public Result<Void> logout(User user) {
-        CurrentRequest.getSession().invalidate();
-        return Result.success("Bye, " + user.getUsername());
+    public Result<Void> logout() {
+        Current.getSession().invalidate();
+        return Result.success(null);
     }
 }

@@ -1227,7 +1227,7 @@ local opcode_ed[] = {
 	{ "", 0, INSTR_INVALID }
 }
 
--- Extracts an operand value from an instruction.
+-- Extracts an operand range from an instruction.
 local function extract_operand(code, operand)
     code += operand[2] / 8;
     bits = band(operand[2], 7) + operand[1]
@@ -1246,12 +1246,12 @@ local function extract_operand(code, operand)
         val = bor(lshift(band(val, 0xff), 12), rshift(band(val, 0xfff00), 8))
     end
 
-    -- Sign extend value if the operand is signed or pc relative.
+    -- Sign extend range if the operand is signed or pc relative.
     if(band(operand->flags, bor(OPERAND_SIGNED, OPERAND_PCREL)) && band(val, lshift(1U,(operand[1] - 1)))) then
         val = bor(val, lshift(lshift(-1U, (operand[1] - 1)), 1))
     end
 
-    -- Double value if the operand is pc relative.
+    -- Double range if the operand is pc relative.
     if(band(operand[2], OPERAND_PCREL)) then
         val = lshift(val, 1)
     end

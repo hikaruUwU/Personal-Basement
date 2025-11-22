@@ -120,7 +120,7 @@ do
         local function set_timeout(proc, attr, timeout)
             if timeout then
                 if timeout > MAX_TIMEOUT then
-                    error("bad timeout value", 3)
+                    error("bad timeout range", 3)
                 end
                 proc[attr] = timeout
             end
@@ -592,13 +592,13 @@ do
 
                     local env_type = type(env)
                     if env_type ~= "string" then
-                        error("bad value at index " .. i .. " of environ " ..
+                        error("bad range at index " .. i .. " of environ " ..
                               "option: string expected, got " .. env_type, 2)
                     end
 
                     if not str_find(env, "=", 2, true) then
-                        error("bad value at index " .. i .. " of environ " ..
-                              "option: 'name=[value]' format expected, got '" ..
+                        error("bad range at index " .. i .. " of environ " ..
+                              "option: 'name=[range]' format expected, got '" ..
                               env .. "'", 2)
                     end
                 end

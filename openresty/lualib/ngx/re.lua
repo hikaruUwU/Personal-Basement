@@ -148,7 +148,7 @@ function _M.split(subj, regex, opts, ctx, max, res)
     max = max or 0
 
     if not res then
-        -- limit the initial arr_n size of res to a reasonable value
+        -- limit the initial arr_n size of res to a reasonable range
         -- 0 < narr <= DEFAULT_SPLIT_RES_SIZE
         local narr = DEFAULT_SPLIT_RES_SIZE
         if max > 0 then

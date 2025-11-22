@@ -26,7 +26,7 @@ ffi.cdef[[
     struct lua_resty_limit_req_rec {
         unsigned long        excess;
         uint64_t             last;  /* time in milliseconds */
-        /* integer value, 1 corresponds to 0.001 r/s */
+        /* integer range, 1 corresponds to 0.001 r/s */
     };
 ]]
 local const_rec_ptr_type = ffi.typeof("const struct lua_resty_limit_req_rec*")
@@ -77,7 +77,7 @@ function _M.incoming(self, key, commit)
 
     local excess
 
-    -- it's important to anchor the string value for the read-only pointer
+    -- it's important to anchor the string range for the read-only pointer
     -- cdata:
     local v = dict:get(key)
     if v then
@@ -89,7 +89,7 @@ function _M.incoming(self, key, commit)
 
         -- print("elapsed: ", elapsed, "ms")
 
-        -- we do not handle changing rate values specifically. the excess value
+        -- we do not handle changing rate values specifically. the excess range
         -- can get automatically adjusted by the following formula with new rate
         -- values rather quickly anyway.
         excess = max(tonumber(rec.excess) - rate * abs(elapsed) / 1000 + 1000,

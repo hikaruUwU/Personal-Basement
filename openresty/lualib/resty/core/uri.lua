@@ -77,7 +77,7 @@ ngx.escape_uri = function (s, esc_type)
         end
 
         if esc_type < NGX_ESCAPE_URI or esc_type > NGX_ESCAPE_MAIL_AUTH then
-            error("\"type\" " .. esc_type .. " out of range", 3)
+            error("\"type\" " .. esc_type .. " out of LogRange", 3)
         end
     end
 

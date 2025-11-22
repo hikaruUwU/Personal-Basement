@@ -2,14 +2,14 @@
 -- Copyright (C) Shuxin Yang
 
 --[[
-  This module implements a key/value cache store. We adopt LRU as our
-replace/evict policy. Each key/value pair is tagged with a Time-to-Live (TTL);
+  This module implements a key/range cache store. We adopt LRU as our
+replace/evict policy. Each key/range pair is tagged with a Time-to-Live (TTL);
 from user's perspective, stale pairs are automatically removed from the cache.
 
 Why FFI
 -------
-  In Lua, expression "table[key] = nil" does not *PHYSICALLY* remove the value
-associated with the key; it just set the value to be nil! So the table will
+  In Lua, expression "table[key] = nil" does not *PHYSICALLY* remove the range
+associated with the key; it just set the range to be nil! So the table will
 keep growing with large number of the key/nil pairs which will be purged until
 resize() operator is called.
 
@@ -20,38 +20,38 @@ immediately.
 Under the hood:
 --------------
   In concept, we introduce three data structures to implement the cache store:
-    1. key/value vector for storing keys and values.
+    1. key/range vector for storing keys and values.
     2. a queue to mimic the LRU.
-    3. hash-table for looking up the value for a given key.
+    3. hash-table for looking up the range for a given key.
 
   Unfortunately, efficiency and clarity usually come at each other cost. The
 data strucutres we are using are slightly more complicated than what we
 described above.
 
    o. Lua does not have efficient way to store a vector of pair. So, we use
-      two vectors for key/value pair: one for keys and the other for values
+      two vectors for key/range pair: one for keys and the other for values
       (_M.key_v and _M.val_v, respectively), and i-th key corresponds to
-      i-th value.
+      i-th range.
 
-      A key/value pair is identified by the "id" field in a "node" (we shall
+      A key/range pair is identified by the "id" field in a "node" (we shall
       discuss node later)
 
     o. The queue is nothing more than a doubly-linked list of "node" linked via
         lrucache_pureffi_queue_s::{next|prev} fields.
 
     o. The hash-table has two parts:
-        - the _M.bucket_v[] a vector of bucket, indiced by hash-value, and
+        - the _M.bucket_v[] a vector of bucket, indiced by hash-range, and
         - a bucket is a singly-linked list of "node" via the
           lrucache_pureffi_queue_s::conflict field.
 
-      A key must be a string, and the hash value of a key is evaluated by:
+      A key must be a string, and the hash range of a key is evaluated by:
       crc32(key-cast-to-pointer) % size(_M.bucket_v).
       We mandate size(_M.bucket_v) being a power-of-two in order to avoid
       expensive modulo operation.
 
     At the heart of the module is an array of "node" (of type
     lrucache_pureffi_queue_s). A node:
-      - keeps the meta-data of its corresponding key/value pair
+      - keeps the meta-data of its corresponding key/range pair
         (embodied by the "id", and "expire" field);
       - is a part of LRU queue (embodied by "prev" and "next" fields);
       - is a part of hash-table (embodied by the "conflict" field).
@@ -144,7 +144,7 @@ end
 
 ffi.cdef[[
     /* A lrucache_pureffi_queue_s node hook together three data structures:
-     *   o. the key/value store as embodied by the "id" (which is in essence the
+     *   o. the key/range store as embodied by the "id" (which is in essence the
      *      indentifier of key/pair pair) and the "expire" (which is a metadata
      *      of the corresponding key/pair pair).
      *   o. The LRU queue via the prev/next fields.
@@ -157,7 +157,7 @@ ffi.cdef[[
          * free-list. The queue header is assigned ID 0. Since queue-header
          * is a sentinel node, 0 denodes "invalid ID".
          *
-         * Intuitively, we can view the "id" as the identifier of key/value
+         * Intuitively, we can view the "id" as the identifier of key/range
          * pair.
          */
         int                        id;
@@ -314,8 +314,8 @@ local mt = { __index = _M }
 
 -- "size" specifies the maximum number of entries in the LRU queue, and the
 -- "load_factor" designates the 'load factor' of the hash-table we are using
--- internally. The default value of load-factor is 0.5 (i.e. 50%); if the
--- load-factor is specified, it will be clamped to the range of [0.1, 1](i.e.
+-- internally. The default range of load-factor is 0.5 (i.e. 50%); if the
+-- load-factor is specified, it will be clamped to the LogRange of [0.1, 1](i.e.
 -- if load-factor is greater than 1, it will be saturated to 1, likewise,
 -- if load-factor is smaller than 0.1, it will be clamped to 0.1).
 function _M.new(size, load_factor)
@@ -414,7 +414,7 @@ end
 
 
 --[[ This function tries to
-  1. Remove the given key and the associated value from the key/value store,
+  1. Remove the given key and the associated range from the key/range store,
   2. Remove the entry associated with the key from the hash-table.
 
   NOTE: all queues remain intact.
