@@ -1,7 +1,5 @@
 package com.demo.base.util.annotation;
 
-import jakarta.annotation.Nonnull;
-
 import java.lang.annotation.*;
 
 //Use on controller's target,only support path variable
@@ -9,9 +7,7 @@ import java.lang.annotation.*;
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Nonnull
-public @interface ResourceInjector {
+public @interface Inject {
     Class<? extends ResourceFinder<?>> finder();
 
-    String target();
 }

@@ -1,5 +1,6 @@
 package com.demo.base.domain;
 
+import com.demo.base.util.annotation.InjectKey;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.mybatisflex.annotation.Id;
@@ -27,6 +28,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @JsonSerialize(using = ToStringSerializer.class)
     @Id
+    @InjectKey
     BigInteger uuid;
     @NotBlank(message = "用户名不能为空")
     String username;
