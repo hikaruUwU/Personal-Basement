@@ -21,12 +21,12 @@ public class AuthService {
         this.userRepository = userRepository;
         this.Current = request;
     }
+
     public Result<Void> login(@Nonnull @Valid User user) {
         User one = userRepository.getOne(QueryWrapper.create().eq(User::getUsername, user.getUsername()));
-
         if (one != null && one.getPassword().equals(user.getPassword())) {
-//          Current.getSession(true).setAttribute("user", one);
-            Current.getSession(true);
+            Current.getSession(true).setAttribute("user", one);
+            //Current.getSession(true);
             return Result.success(null);
         } else
             return Result.fail("UserName/Password incorrect.");

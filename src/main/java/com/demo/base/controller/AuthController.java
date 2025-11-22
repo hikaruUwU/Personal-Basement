@@ -20,9 +20,7 @@ public class AuthController {
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
-
     @PostMapping("/auth")
-    @Monitor(level = LogLevel.INFO)
     public Result<Void> authenticate(@RequestBody @Valid User user) {
         return authService.login(user);
     }
@@ -33,11 +31,11 @@ public class AuthController {
         return Result.success(user);
     }
 
-
-
-
-
-
+    @GetMapping("/me/profile")
+    @RestrictAccess
+    public Result<User> myProfile(@InjectViaSession(key = "user") User user) {
+        return Result.success(user);
+    }
 
     @GetMapping("/logout")
     @RestrictAccess
