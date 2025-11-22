@@ -17,6 +17,7 @@ This is the Spring Boot backend template, pre-configured with core dependencies 
     * **`spring-boot-validation`**: For **validating** request data.
     * **`mysql-connector-j`**&**`hikari-CP`**: MySQL database driver.
     * **`mybatis-flex`**: Simple ORM for database operations.
+    * **`AOP`**: AOP.
 
 **Frontend** **Vite / TypeScript**
 
